@@ -1,10 +1,12 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import auth from "../fireBase/firebase.config";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Register = () => {
   const [registerError, setRegisterError] = useState("");
   const [registerSuccess, setRegisterSuccess] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -18,6 +20,11 @@ const Register = () => {
 
     if (password.length < 6) {
       setRegisterError("Password should be at least 6 character or longer");
+      return;
+    } else if (!/[A-Z]/.test(password)) {
+      setRegisterError(
+        "You password should have at least one upper case characters"
+      );
       return;
     }
 
@@ -48,11 +55,14 @@ const Register = () => {
           <input
             className="mb-4 w-3/4 py-2 px-4 border border-black"
             placeholder="password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
             id=""
             required
           />
+          <span onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
           <br />
           <input
             className="btn btn-secondary mb-4 w-3/4"
