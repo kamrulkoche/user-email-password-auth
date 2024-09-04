@@ -10,9 +10,10 @@ const Register = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    const email = e.target.email.value; 
+    const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password);
+    const accepted = e.target.terms.checked;
+    console.log(email, password, accepted);
 
     //reset error
     setRegisterSuccess("");
@@ -25,6 +26,9 @@ const Register = () => {
       setRegisterError(
         "You password should have at least one upper case characters"
       );
+      return;
+    } else if (!accepted) {
+      setRegisterError("Please accept our terms and condition");
       return;
     }
 
@@ -44,7 +48,7 @@ const Register = () => {
         <h2 className="text-3xl mb-4">Please Register</h2>
         <form onSubmit={handleRegister}>
           <input
-            className="mb-4 w-3/4 py-2 px-4 border border-black"
+            className="mb-4 w-full py-2 px-4 border border-black"
             placeholder="Your Email Address"
             type="email"
             name="email"
@@ -52,20 +56,31 @@ const Register = () => {
             required
           />
           <br />
-          <input
-            className="mb-4 w-3/4 py-2 px-4 border border-black"
-            placeholder="password"
-            type={showPassword ? "text" : "password"}
-            name="password"
-            id=""
-            required
-          />
-          <span onClick={() => setShowPassword(!showPassword)}>
-            {showPassword ? <FaEyeSlash /> : <FaEye />}
-          </span>
+          <div className="relative">
+            <input
+              className="mb-4 w-full py-2 px-4 border border-black"
+              placeholder="password"
+              type={showPassword ? "text" : "password"}
+              name="password"
+              id=""
+              required
+            />
+            <span
+              className="absolute top-3 right-3"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
           <br />
+          <div className="mb-4">
+            <input type="checkbox" name="terms" id="terms" />
+            <label className="ml-2" htmlFor="terms">
+              Accept our <a href="">Terms and Conditions</a>
+            </label>
+          </div>
           <input
-            className="btn btn-secondary mb-4 w-3/4"
+            className="btn btn-secondary mb-4 w-full"
             type="submit"
             value="Register"
           />
