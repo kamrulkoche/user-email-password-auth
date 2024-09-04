@@ -10,7 +10,6 @@ const HeroRegister = () => {
     const password = e.target.password.value;
     console.log(email, password);
     createUserWithEmailAndPassword(auth, email, password)
-    
       .then((result) => {
         console.log(result);
       })
