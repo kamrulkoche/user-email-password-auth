@@ -21,7 +21,7 @@ const Login = () => {
     setLoginSuccess("");
     setLoginError("");
 
-    // add validation
+    // add login validation
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
         setLoginSuccess("User logged in Successfully");
