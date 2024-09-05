@@ -44,7 +44,7 @@ const Login = () => {
     }
 
     //send validation email
-    sendPasswordResetEmail(auth,email)
+    sendPasswordResetEmail(auth, email)
       .then(() => {
         alert("please check your email");
       })
